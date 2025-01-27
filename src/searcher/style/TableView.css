@@ -1,0 +1,23 @@
+.table-row-cell:empty {
+    -fx-background-color: white;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+
+.table-row-cell:focused .table-cell  {
+    -fx-text-fill: green;
+    -fx-border-color: darkgrey;
+}
+
+.table-cell:hover   {
+    -fx-text-fill: blue;
+    -fx-border-color: red;
+}
+
+.table-row-cell:focused .table-cell:hover  {
+    -fx-text-fill: blue;
+    -fx-border-color: red;
+}
