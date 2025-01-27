@@ -14,16 +14,16 @@ import java.util.*;
 /**
  * Program for find duplicate files in two different directories
  */
-public class FileComparer extends Task<List<RowTableData>> {
+public class FileSearcher extends Task<List<RowTableData>> {
 
-    public static FileComparer createForSearch(MainController controller) {
+    public static FileSearcher createForSearch(MainController controller) {
         tempDictionary = new HashMap<>();
         String searchDirPath = controller.getFirstDirectory().getAbsolutePath();
         boolean isRoot= false;
         if (searchDirPath.split("\\\\").length == 1) {
             isRoot = true;
         }
-        FileComparer comparer = new FileComparer(isRoot);
+        FileSearcher comparer = new FileSearcher(isRoot);
         comparer.controller = controller;
         String[] extensions = new String[1];
         String searchPhrase = controller.getSearchPhrase();
@@ -42,9 +42,9 @@ public class FileComparer extends Task<List<RowTableData>> {
         return comparer;
     }
 
-    public static FileComparer createForCompare(MainController controller) {
+    public static FileSearcher createForCompare(MainController controller) {
         tempDictionary = new HashMap<>();
-        FileComparer comparer = new FileComparer(true);
+        FileSearcher comparer = new FileSearcher(true);
         /*constructor. if extensions undefined filter no use*/
         comparer.controller = controller;
         String[] extensions = controller.getSettings().getAllowedExtensions();
@@ -144,7 +144,7 @@ public class FileComparer extends Task<List<RowTableData>> {
 
     private Progress progress;
 
-    private FileComparer(boolean rootSearch) {
+    private FileSearcher(boolean rootSearch) {
         this.dictionary = new ArrayList<>();
         if (rootSearch) {
             this.progress = new Progress(100000);

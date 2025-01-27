@@ -96,7 +96,7 @@ public class FileInfo implements Comparable<FileInfo>
     public static List<WordInfo> putWordsIntoDictionary(List<String> list) {
         List<WordInfo> result = new ArrayList<>();
         for (String string : list) {
-            Map<String, WordInfo> dictionary = FileComparer.getTempDictionary();
+            Map<String, WordInfo> dictionary = FileSearcher.getTempDictionary();
             WordInfo wordInfo = null;
             if (dictionary.containsKey(string)) {
                 wordInfo = dictionary.get(string);

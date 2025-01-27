@@ -1,7 +1,7 @@
 package searcher.util;
 
 import searcher.RowTableData;
-import searcher.model.FileComparer;
+import searcher.model.FileSearcher;
 import searcher.model.FileInfo;
 import searcher.style.Skin;
 
@@ -36,7 +36,6 @@ public class HtmlWriter {
     private static String end;
 
     static {
-        //searcher
         head = readTemplate("searcher/head_template.html");
         table = readTemplate("searcher/table_template.html");
         title = readTemplate("searcher/title_template.html");
@@ -44,23 +43,6 @@ public class HtmlWriter {
         td = readTemplate("searcher/td_template.html");
         tr = readTemplate("searcher/tr_template.html");
         end = readTemplate("endTemplate.html");
-
-        //comparer
-        //TODO Сделать разделение на comparer и searcher (не забыть про разные пути сохранения параметров)
-        /*
-        beginHtml = readTemplate("beginTemplate.html");
-        singleDirectory = readTemplate("singleDirectoryTemplate.html");
-        twoDirectory = readTemplate("twoDirectoryTemplate.html");
-        beginTableFound = readTemplate("beginTableTemplate.html");
-        beginTableNotFound = readTemplate("beginTableNotFoundTemplate.html");
-        tableHeader = readTemplate("tableHeaderTemplate.html");
-        tableHeaderNotFound = readTemplate("tableHeaderNotFoundTemplate.html");
-        tableRowLeft = readTemplate("tableRowLeftTemplate.html");
-        tableRowRight = readTemplate("tableRowRightTemplate.html");
-        tableRowNotFound = readTemplate("tableRowNotFoundTemplate.html");
-        end = readTemplate("endTemplate.html");
-         */
-
     }
 
     private static String readTemplate(String pathVal) {
@@ -88,13 +70,13 @@ public class HtmlWriter {
     }
 
     /*link to fileComparer*/
-    private FileComparer comparer;
+    private FileSearcher comparer;
 
     /*encoding*/
     private String encoding;
 
     /*constructor*/
-    public HtmlWriter(FileComparer comparer, String encoding) {
+    public HtmlWriter(FileSearcher comparer, String encoding) {
         this.comparer = comparer;
         this.encoding = encoding;
     }

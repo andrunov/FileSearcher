@@ -1,6 +1,6 @@
 package searcher.util;
 
-import searcher.model.FileComparer;
+import searcher.model.FileSearcher;
 import searcher.model.FileInfo;
 
 import java.io.IOException;
@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
 public class TextWriter {
 
     /*link to fileComparer*/
-    private FileComparer comparer;
+    private FileSearcher comparer;
 
     /*encoding*/
     private String encoding;
 
     /*constructor*/
-    public TextWriter(FileComparer comparer, String encoding) {
+    public TextWriter(FileSearcher comparer, String encoding) {
         this.comparer = comparer;
         this.encoding = encoding;
     }

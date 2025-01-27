@@ -3,7 +3,7 @@ package searcher.controller;
 
 import searcher.MainApp;
 import searcher.RowTableData;
-import searcher.model.FileComparer;
+import searcher.model.FileSearcher;
 import searcher.model.Settings;
 import searcher.util.ColorController;
 import searcher.util.Formatter;
@@ -166,7 +166,7 @@ public class MainController implements Initializable {
 
         this.tableResult.getItems().clear();
         this.progressBar.setVisible(true);
-        FileComparer comparer = FileComparer.createForSearch(this);
+        FileSearcher comparer = FileSearcher.createForSearch(this);
         if (deepCompare) {
             comparer.setExactWordMatch(false);
         }
