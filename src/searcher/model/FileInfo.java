@@ -18,23 +18,6 @@ public class FileInfo implements Comparable<FileInfo>
     private static int fileInfoCounter;
 
 
-    /*copy FileInfo excluding List<FileInfo> similarFiles*/
-    public static FileInfo copy(FileInfo fileInfo){
-        FileInfo newFileInfo = new FileInfo();
-        newFileInfo.ID = fileInfo.ID;
-        newFileInfo.setAbsolutePath(fileInfo.getAbsolutePath());
-        newFileInfo.setSize(fileInfo.getSize());
-        return newFileInfo;
-    }
-
-    /*copy FileInfo including List<FileInfo> with similar file*/
-    public static FileInfo copy(FileInfo fileInfo, FileInfo singleSimilar){
-        List<FileInfo> singleList = new ArrayList<>();
-        singleList.add(singleSimilar);
-        FileInfo newFileInfo = FileInfo.copy(fileInfo);
-        return newFileInfo;
-    }
-
     /*cuts file extension*/
     private static String cutExtension(String fileName){
         int dotPosition = fileName.lastIndexOf('.');

@@ -379,14 +379,6 @@ public class FileSearcher extends Task<List<RowTableData>> {
     }
 
 
-    /*insert two similar FileInfo in directory send as 1st parameter*/
-    private void addEqualities(List<FileInfo> list, FileInfo startFileInfo, FileInfo endFileInfo){
-        FileInfo copy = FileInfo.copy(startFileInfo,endFileInfo);
-        list.add(copy);
-        startFileInfo.setAccepted(true);
-    }
-
-
     /*fill map with filenames and their split names by the words */
     private List<FileInfo> fillDirectory(String directoryPath){
         String message = String.format("%s: %s",this.resourceBundle.getString("ReadDir"), directoryPath );

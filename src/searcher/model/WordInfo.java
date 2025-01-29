@@ -28,9 +28,6 @@ public class WordInfo {
     private double weight;
 
 
-    private boolean isIgnorance;
-
-
     /**
      * words similar to this one. Key - similar word itself,
      * value - similarity coefficient (100% means that word is equal)
@@ -76,14 +73,6 @@ public class WordInfo {
 
     public void setSimilarWords(Map<WordInfo, Integer> similarWords) {
         this.similarWords = similarWords;
-    }
-
-    public boolean isIgnorance() {
-        return isIgnorance;
-    }
-
-    public void setIgnorance(boolean ignorance) {
-        isIgnorance = ignorance;
     }
 
     @Override
