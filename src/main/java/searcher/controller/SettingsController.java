@@ -2,7 +2,7 @@ package searcher.controller;
 
 import searcher.MainApp;
 import searcher.model.Settings;
-import searcher.style.Skin;
+import searcher.view.Skin;
 import searcher.util.Formatter;
 import searcher.util.Message;
 import javafx.beans.value.ChangeListener;

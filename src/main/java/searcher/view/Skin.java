@@ -1,4 +1,4 @@
-package searcher.style;
+package searcher.view;
 
 import java.util.ResourceBundle;
 

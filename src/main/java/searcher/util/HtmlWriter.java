@@ -3,7 +3,7 @@ package searcher.util;
 import searcher.RowTableData;
 import searcher.model.FileSearcher;
 import searcher.model.FileInfo;
-import searcher.style.Skin;
+import searcher.view.Skin;
 
 import java.io.*;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  */
 public class HtmlWriter {
 
-    private static final String BASE_PATH = "html/";
+    private static final String BASE_PATH = "searcher/html/";
 
     private static String beginHtml;
     private static String head;
@@ -53,17 +53,14 @@ public class HtmlWriter {
         byte[] buffer = new byte[1024];
         int length;
 
-        if (inputStream != null) {
-
-            try {
-                while ((length = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, length);
-                }
-                result = outputStream.toString("UTF-8");
-
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            while ((length = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
             }
+            result = outputStream.toString("UTF-8");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return result;

@@ -248,16 +248,16 @@ public class MainController implements Initializable {
     public void changeLocale(){
         if (this.settings.getLocale().equals("ru")){
             this.settings.setLocale("en");
-            this.resourceBundle = ResourceBundle.getBundle("searcher.resources.bundles.Locale",new Locale("en"));
+            this.resourceBundle = ResourceBundle.getBundle("searcher.bundles.Locale",new Locale("en"));
         } else if (this.settings.getLocale().equals("en")){
             this.settings.setLocale("ru");
-            this.resourceBundle = ResourceBundle.getBundle("searcher.resources.bundles.Locale",new Locale("ru"));
+            this.resourceBundle = ResourceBundle.getBundle("searcher.bundles.Locale",new Locale("ru"));
         }
         updateLocalText();
     }
 
     public void setLocale(String locale){
-        this.resourceBundle = ResourceBundle.getBundle("searcher.resources.bundles.Locale",new Locale(locale));
+        this.resourceBundle = ResourceBundle.getBundle("searcher.bundles.Locale",new Locale(locale));
         updateLocalText();
     }
 

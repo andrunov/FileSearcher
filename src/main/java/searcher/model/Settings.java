@@ -1,6 +1,6 @@
 package searcher.model;
 
-import searcher.style.Skin;
+import searcher.view.Skin;
 import searcher.util.AppPreferences;
 
 import java.io.File;

@@ -1,4 +1,5 @@
 package searcher;
+
 /**
  * Class with main method
  */
@@ -44,8 +45,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("File searcher");
-        this.primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/searcher/resources/images/glass.png")));
+        this.primaryStage.setTitle("File main.java.searcher");
+        this.primaryStage.getIcons().add(new Image(String.valueOf(MainApp.class.getResource("/searcher/images/glass.png"))));
         this.settings = new Settings();
         this.settings.loadFields();
         this.initRootLayout(new Locale("ru","RU"));
@@ -69,9 +70,8 @@ public class MainApp extends Application {
     public void initRootLayout(Locale locale) {
         try {
             // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setResources(ResourceBundle.getBundle("searcher.resources.bundles.Locale", locale));
-            loader.setLocation(MainApp.class.getResource("view/MainView.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/MainView.fxml"));
+            loader.setResources(ResourceBundle.getBundle("searcher/bundles/Locale", locale));
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.

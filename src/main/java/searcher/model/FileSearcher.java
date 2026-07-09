@@ -2,7 +2,7 @@ package searcher.model;
 
 import searcher.RowTableData;
 import searcher.controller.MainController;
-import searcher.style.Skin;
+import searcher.view.Skin;
 import searcher.util.FileFilter;
 import searcher.util.HtmlWriter;
 import searcher.util.Sorter;
@@ -319,8 +319,6 @@ public class FileSearcher extends Task<List<RowTableData>> {
     * comparing for full equality is mandatory
     * in other case rest comparings will not works properly*/
     private void compareDirectories(){
-
-        int compareWork = startDirectory.size() * endDirectory.size();
 
         for (FileInfo startFileInfo : startDirectory) {
             for (FileInfo endFileInfo : endDirectory) {
