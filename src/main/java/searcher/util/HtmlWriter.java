@@ -36,12 +36,12 @@ public class HtmlWriter {
     private static String end;
 
     static {
-        head = readTemplate("searcher/head_template.html");
-        table = readTemplate("searcher/table_template.html");
-        title = readTemplate("searcher/title_template.html");
-        th = readTemplate("searcher/th_template.html");
-        td = readTemplate("searcher/td_template.html");
-        tr = readTemplate("searcher/tr_template.html");
+        head = readTemplate("head_template.html");
+        table = readTemplate("table_template.html");
+        title = readTemplate("title_template.html");
+        th = readTemplate("th_template.html");
+        td = readTemplate("td_template.html");
+        tr = readTemplate("tr_template.html");
         end = readTemplate("endTemplate.html");
     }
 
