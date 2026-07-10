@@ -1,6 +1,6 @@
 package searcher.util;
 
-import searcher.RowTableData;
+import searcher.view.ReportTableRow;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,12 +12,12 @@ import java.util.List;
 public class Sorter {
 
     /*comparator use only for sort List<FileInfo>, not for compare FileInfo objects */
-    private static Comparator<RowTableData> rowTableDataComparator;
+    private static Comparator<ReportTableRow> rowTableDataComparator;
 
     static {
-        rowTableDataComparator = new Comparator<RowTableData>() {
+        rowTableDataComparator = new Comparator<ReportTableRow>() {
             @Override
-            public int compare(RowTableData o1, RowTableData o2) {
+            public int compare(ReportTableRow o1, ReportTableRow o2) {
                 int result = o2.getSimilarity() - o1.getSimilarity();
                 if (result == 0) {
                     result = o1.getAbsolutePath().compareTo(o2.getAbsolutePath());
@@ -27,7 +27,7 @@ public class Sorter {
         };
     }
 
-    public static void sort(List<RowTableData> rowTableDataList) {
-        Collections.sort(rowTableDataList, rowTableDataComparator);
+    public static void sort(List<ReportTableRow> reportTableRowList) {
+        Collections.sort(reportTableRowList, rowTableDataComparator);
     }
 }

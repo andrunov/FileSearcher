@@ -1,10 +1,13 @@
-package searcher;
+package searcher.view;
 
 import searcher.model.FileInfo;
 
-public class RowTableData {
+/**
+ * Representation for report table row
+ */
+public class ReportTableRow {
 
-    public RowTableData(FileInfo fileInfo, int similarity) {
+    public ReportTableRow(FileInfo fileInfo, int similarity) {
         this.fileInfo = fileInfo;
         this.similarity = similarity;
     }
