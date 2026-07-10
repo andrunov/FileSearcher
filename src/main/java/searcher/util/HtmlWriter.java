@@ -1,6 +1,6 @@
 package searcher.util;
 
-import searcher.RowTableData;
+import searcher.view.ReportTableRow;
 import searcher.model.FileSearcher;
 import searcher.model.FileInfo;
 import searcher.view.Skin;
@@ -161,10 +161,10 @@ public class HtmlWriter {
 
     /*
     * HTML table for report*/
-    private void printHtmlTableBody(PrintWriter writer, List<RowTableData> fileInfoList) {
+    private void printHtmlTableBody(PrintWriter writer, List<ReportTableRow> fileInfoList) {
         if (fileInfoList.size() > 0) {
-            for (RowTableData rowTableData : fileInfoList) {
-                this.printHtmlTableRowForSearch(writer, rowTableData);
+            for (ReportTableRow reportTableRow : fileInfoList) {
+                this.printHtmlTableRowForSearch(writer, reportTableRow);
             }
         }
     }
@@ -208,8 +208,8 @@ public class HtmlWriter {
 
     /*
      * HTML table left part of row for report*/
-    private void printHtmlTableRowForSearch(PrintWriter writer, RowTableData rowTableData) {
-        int similarity = rowTableData.getSimilarity();
+    private void printHtmlTableRowForSearch(PrintWriter writer, ReportTableRow reportTableRow) {
+        int similarity = reportTableRow.getSimilarity();
         String bgRGB = ColorController.getBgRGB(similarity);
         String bgRGBA = String.format("rgba(%s, %s)", bgRGB, 0.05);
         String borderRGBA = String.format("rgba(%s, %s)", bgRGB, 0.1);
@@ -217,7 +217,7 @@ public class HtmlWriter {
         String textRGBA = String.format("rgba(%s, %s)", textRGB, 1);
         String trTag = String.format(tr, bgRGBA, borderRGBA);
         writer.println(trTag);
-        FileInfo fileInfo = rowTableData.getFileInfo();
+        FileInfo fileInfo = reportTableRow.getFileInfo();
         String path = fileInfo.getAbsolutePath();
         String fileImage;
         String sizeFormatted = null;

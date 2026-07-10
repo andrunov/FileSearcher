@@ -1,6 +1,6 @@
 package searcher.model;
 
-import searcher.RowTableData;
+import searcher.view.ReportTableRow;
 import searcher.controller.MainController;
 import searcher.view.Skin;
 import searcher.util.FileFilter;
@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Program for find duplicate files in two different directories
  */
-public class FileSearcher extends Task<List<RowTableData>> {
+public class FileSearcher extends Task<List<ReportTableRow>> {
 
     public static FileSearcher createForSearch(MainController controller) {
         tempDictionary = new HashMap<>();
@@ -124,7 +124,7 @@ public class FileSearcher extends Task<List<RowTableData>> {
     /*list for files which no has similarities */
     private List<FileInfo> noSimilarities = new ArrayList<>();
 
-    private List<RowTableData> report = new ArrayList<>();
+    private List<ReportTableRow> report = new ArrayList<>();
 
     /*filter of file types*/
     private FileFilter filter;
@@ -155,7 +155,7 @@ public class FileSearcher extends Task<List<RowTableData>> {
 
 
     @Override
-    protected List<RowTableData> call() throws Exception {
+    protected List<ReportTableRow> call() throws Exception {
         this.search();
         return this.getReport();
     }
@@ -203,7 +203,7 @@ public class FileSearcher extends Task<List<RowTableData>> {
         this.filter = filter;
     }
 
-    public List<RowTableData> getReport() {
+    public List<ReportTableRow> getReport() {
         return report;
     }
 
@@ -330,13 +330,13 @@ public class FileSearcher extends Task<List<RowTableData>> {
                 }
 
                 if (startFileInfo.nameIsEquals(endFileInfo)) {
-                    RowTableData rowTableData = new RowTableData(startFileInfo, 100);
-                    this.report.add(rowTableData);
+                    ReportTableRow reportTableRow = new ReportTableRow(startFileInfo, 100);
+                    this.report.add(reportTableRow);
                 } else {
                     int similarWords = this.comparePhrases(startFileInfo.getdWords(), endFileInfo.getdWords());
                     if (similarWords > 0) {
-                        RowTableData rowTableData = new RowTableData(startFileInfo, similarWords);
-                        this.report.add(rowTableData);
+                        ReportTableRow reportTableRow = new ReportTableRow(startFileInfo, similarWords);
+                        this.report.add(reportTableRow);
                     }
                 }
 

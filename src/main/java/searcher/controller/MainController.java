@@ -2,7 +2,7 @@ package searcher.controller;
 
 
 import searcher.MainApp;
-import searcher.RowTableData;
+import searcher.view.ReportTableRow;
 import searcher.model.FileSearcher;
 import searcher.model.Settings;
 import searcher.util.ColorController;
@@ -101,7 +101,7 @@ public class MainController implements Initializable {
     /*desktop uses for open files just from JavaFX application*/
     private Desktop desktop;
 
-    private  List<RowTableData> rowTableDataList;
+    private  List<ReportTableRow> reportTableRowList;
 
     private Settings settings;
 
@@ -112,7 +112,7 @@ public class MainController implements Initializable {
 
     /*constructor*/
     public MainController() {
-        this.rowTableDataList = new ArrayList<>();
+        this.reportTableRowList = new ArrayList<>();
         if (Desktop.isDesktopSupported()) {
             this.desktop = Desktop.getDesktop();
         }
@@ -202,7 +202,7 @@ public class MainController implements Initializable {
         return result;
     }
 
-    public void showResult(List<RowTableData> report) {
+    public void showResult(List<ReportTableRow> report) {
         if (report.size() == 0
             && this.searchAttemptNumber < 2
             && this.getSettings().isExactWordMatch()) {
@@ -216,7 +216,7 @@ public class MainController implements Initializable {
         }
     }
 
-    private void updateTable(List<RowTableData> report) {
+    private void updateTable(List<ReportTableRow> report) {
         if (this.getSettings().isWriteHtmlReport()) {
             this.openResultBtn.setVisible(true);
         }
@@ -232,7 +232,7 @@ public class MainController implements Initializable {
         this.pagination.setCurrentPageIndex(0);
         int toIndex = Math.min(ROWS_RER_PAGE, report.size());
         this.tableResult.setItems(FXCollections.observableArrayList(report.subList(0, toIndex)));
-        this.rowTableDataList = report;
+        this.reportTableRowList = report;
         this.progressBar.setVisible(false);
     }
 
@@ -340,7 +340,7 @@ public class MainController implements Initializable {
     private void clear(){
         this.firstDirectory = null;
         this.secondDirectory = null;
-        this.rowTableDataList.clear();
+        this.reportTableRowList.clear();
         this.tableResult.getItems().clear();
         this.pagination.setPageCount(1);
         this.fileNameTextField.clear();
@@ -390,8 +390,8 @@ public class MainController implements Initializable {
 
         this.tableResult.setPlaceholder(new Label(this.resourceBundle.getString("TableViewPlaceholder")));
 
-        ObservableList<TableColumn<RowTableData, String>> columns = this.tableResult.getColumns();
-        for (TableColumn<RowTableData, String> column : columns) {
+        ObservableList<TableColumn<ReportTableRow, String>> columns = this.tableResult.getColumns();
+        for (TableColumn<ReportTableRow, String> column : columns) {
             if (column.getId().equals("rowSimilar")) {
                 column.setCellValueFactory(new PropertyValueFactory<>("PercSimilarity"));
             }
@@ -408,9 +408,9 @@ public class MainController implements Initializable {
         }
 
         this.tableResult.setRowFactory( tv -> {
-            TableRow<RowTableData> row = new TableRow<RowTableData>() {
+            TableRow<ReportTableRow> row = new TableRow<ReportTableRow>() {
                 @Override
-                protected void updateItem(RowTableData rowTableData, boolean empty) {
+                protected void updateItem(ReportTableRow rowTableData, boolean empty) {
                     super.updateItem(rowTableData, empty);
                     if (rowTableData == null) {
                         setStyle("-fx-background-color: white;");
@@ -428,19 +428,19 @@ public class MainController implements Initializable {
 
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    RowTableData rowTableData = row.getItem();
+                    ReportTableRow reportTableRow = row.getItem();
                     String columnID = row.getTableView().getSelectionModel().getSelectedCells().get(0).getTableColumn().getId();
                     if (columnID.equals("rowFolderName")) {
                         try {
                             assert this.desktop != null;
-                            this.desktop.open(new File(rowTableData.getBaseFolderPath()));
+                            this.desktop.open(new File(reportTableRow.getBaseFolderPath()));
                         } catch (Exception e) {
                             Message.errorAlert(this.resourceBundle, "Error in MainController.openResult() ", e);
                         }
                     } else if (columnID.equals("rowFileName")) {
                         try {
                             assert this.desktop != null;
-                            this.desktop.open(new File(rowTableData.getAbsolutePath()));
+                            this.desktop.open(new File(reportTableRow.getAbsolutePath()));
                         } catch (Exception e) {
                             Message.errorAlert(this.resourceBundle, "Error in MainController.openResult() ", e);
                         }
@@ -455,8 +455,8 @@ public class MainController implements Initializable {
 
     public void updateResultTable() {
         this.tableResult.setPlaceholder(new Label(this.resourceBundle.getString("TableViewPlaceholder")));
-        ObservableList<TableColumn<RowTableData, String>> columns = this.tableResult.getColumns();
-        for (TableColumn<RowTableData, String> column : columns) {
+        ObservableList<TableColumn<ReportTableRow, String>> columns = this.tableResult.getColumns();
+        for (TableColumn<ReportTableRow, String> column : columns) {
             if (column.getId().equals("rowSimilar")) {
                 column.setText(this.resourceBundle.getString("Similar"));
             }
@@ -480,8 +480,8 @@ public class MainController implements Initializable {
     public void loadSettings(Settings settings) {
         this.settings = settings;
         this.splitPane.setDividerPosition(0, this.settings.getSplitPaneDividerPositions());
-        ObservableList<TableColumn<RowTableData, String>> columns = this.tableResult.getColumns();
-        for (TableColumn<RowTableData, String> column : columns) {
+        ObservableList<TableColumn<ReportTableRow, String>> columns = this.tableResult.getColumns();
+        for (TableColumn<ReportTableRow, String> column : columns) {
             if (column.isVisible()) {
                 double prefWidth = this.settings.getTableColumnWidth(column.getId());
                 column.setPrefWidth(prefWidth);
@@ -492,8 +492,8 @@ public class MainController implements Initializable {
     public void saveSettings() {
         this.settings.setInitialFirstDir(this.firstDirectory);
         this.settings.setSplitPaneDividerPositions(this.splitPane.getDividerPositions()[0]);
-        ObservableList<TableColumn<RowTableData, String>> columns = this.tableResult.getColumns();
-        for (TableColumn<RowTableData, String> column : columns) {
+        ObservableList<TableColumn<ReportTableRow, String>> columns = this.tableResult.getColumns();
+        for (TableColumn<ReportTableRow, String> column : columns) {
             if (column.isVisible()) {
                 this.settings.setTableColumnWidth(column.getId(), column.getWidth());
             }
@@ -504,11 +504,11 @@ public class MainController implements Initializable {
     private Node createPage(int pageIndex) {
 
         int fromIndex = pageIndex * ROWS_RER_PAGE;
-        int toIndex = Math.min(fromIndex + ROWS_RER_PAGE, this.rowTableDataList.size());
-        if (this.rowTableDataList.size() > 0) {
-            tableResult.setItems(FXCollections.observableArrayList(this.rowTableDataList.subList(fromIndex, toIndex)));
+        int toIndex = Math.min(fromIndex + ROWS_RER_PAGE, this.reportTableRowList.size());
+        if (this.reportTableRowList.size() > 0) {
+            tableResult.setItems(FXCollections.observableArrayList(this.reportTableRowList.subList(fromIndex, toIndex)));
         } else {
-            tableResult.setItems(FXCollections.observableArrayList(this.rowTableDataList));
+            tableResult.setItems(FXCollections.observableArrayList(this.reportTableRowList));
         }
 
         return new BorderPane(tableResult);
