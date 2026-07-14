@@ -3,6 +3,8 @@ Desktop App for search files in your local discs. This is mine portfolio for dem
 Works as native OS searchers but faster, has friendly appearance and ability to write HTML reports.
 
 ## Achievements:
+- Levenshtein algorithm
+- sort results by similarity degree with pagination
 - multithreading (UI was divided from maim logic)
 - algorithmic optimization (app rum really fast)
 - automatic scaling of elements based on window size
@@ -20,6 +22,8 @@ Works as native OS searchers but faster, has friendly appearance and ability to 
 Работает как нативные поисковые системы ОС, но быстрее, имеет удобный интерфейс и возможность создания HTML-отчётов.
 
 ## Что было сделано:
+- алгоритм Левенштейна
+- сортировка результатов по степени похожести с пейджингом
 - многопоточность (интерфейс был отделён от основной логики)
 - алгоритмическая оптимизация (приложение работает действительно быстро)
 - автоматическое масштабирование элементов в зависимости от размера окна
