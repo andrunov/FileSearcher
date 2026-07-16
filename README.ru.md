@@ -16,6 +16,6 @@
 ![FileSearcher](https://github.com/andrunov/myImages/blob/master/FileSearcherReport.JPG?raw=true)
 
 ## Download:
-[Java 8 version](https://drive.google.com/file/d/1xZ8vCqG_YD0gCFbKaj1ZLNdrQJgUL6gR/view?usp=drive_link)<br>
-[Java 11 and higher version](https://drive.google.com/file/d/1xZ8vCqG_YD0gCFbKaj1ZLNdrQJgUL6gR/view?usp=drive_link)<br>
-[Install Java if absent](https://www.java.com/en/download/manual.jsp)
+[Версия для Java 8](https://drive.google.com/file/d/1xZ8vCqG_YD0gCFbKaj1ZLNdrQJgUL6gR/view?usp=drive_link)<br>
+[Версия для Java 11 и выше](https://drive.google.com/file/d/1xZ8vCqG_YD0gCFbKaj1ZLNdrQJgUL6gR/view?usp=drive_link)<br>
+[Установить Java (если отсутствует)](https://www.java.com/en/download/manual.jsp)
