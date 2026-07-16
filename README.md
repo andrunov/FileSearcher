@@ -7,6 +7,7 @@ Works as native OS searchers but faster, has friendly appearance and ability to 
 ## Achievements:
 - Levenshtein algorithm
 - sort results by similarity degree with pagination
+- smart search that takes into account typos and grammatical variations (files with similar names are ranked higher, which is not the case with standard OS search engines)
 - multithreading (UI was divided from maim logic)
 - algorithmic optimization (app rum really fast)
 - automatic scaling of elements based on window size
