@@ -14,11 +14,17 @@ public class FileInfo implements Comparable<FileInfo>
 {
 
 
-    /*for increase ID of wordInfo objects*/
+    /**
+     * Counter to track unique file info IDs.
+     */
     private static int fileInfoCounter;
 
-
-    /*cuts file extension*/
+    /**
+     * Removes the file extension from a file name.
+     *
+     * @param fileName the file name to process
+     * @return the name without extension
+     */
     private static String cutExtension(String fileName){
         int dotPosition = fileName.lastIndexOf('.');
         String result = null;
@@ -61,8 +67,12 @@ public class FileInfo implements Comparable<FileInfo>
         return result;
     }
 
-    /*
-    * split phrase into list of words*/
+    /**
+     * Splits a phrase into words using multiple strategies.
+     *
+     * @param phrase the source phrase
+     * @return the list of extracted words
+     */
     private static List<String> getSplitString(String phrase) {
         List<String> result = null;
         if (phrase.isEmpty()) {
@@ -107,25 +117,32 @@ public class FileInfo implements Comparable<FileInfo>
     }
 
     /**
-     * unique identifier
-     * */
+     * Unique identifier for the file info.
+     */
     private int ID;
 
-    /*absolute path to file*/
+    /**
+     * The absolute path to the file.
+     */
     private String absolutePath;
 
-    /*size of file*/
+    /**
+     * The file size in bytes.
+     */
     private long size;
-
 
     private boolean isDirectory;
 
+    /**
+     * Words extracted from the file name.
+     */
     private List<WordInfo> dWords;
 
     private String extension;
 
-
-    /*field-marker that this object has participate in compares*/
+    /**
+     * Indicates whether this item participated in comparisons.
+     */
     private boolean accepted;
 
     /**
@@ -272,7 +289,9 @@ public class FileInfo implements Comparable<FileInfo>
     }
 
 
-    /*to string method*/
+    /**
+     * Returns the string representation of the file info.
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -283,7 +302,9 @@ public class FileInfo implements Comparable<FileInfo>
         return sb.toString();
     }
 
-    /*to string without similarities*/
+    /**
+     * Returns a formatted string representation without similarity data.
+     */
     public String printWithoutSimilarities() {
         String sizeFormatted = Formatter.doubleFormat("###,###.##",this.size*1.0/1048576);
         return String.format("%-2s%-87.87s%10.10s%3s%5s","|",this.showName(),sizeFormatted, "mb","|");
@@ -310,14 +331,18 @@ public class FileInfo implements Comparable<FileInfo>
         return Objects.hash(ID);
     }
 
-    /*compare to method*/
+    /**
+     * Compares the current file info with another.
+     */
     @Override
     public int compareTo(FileInfo other)
     {
         return this.ID - other.ID;
     }
 
-    /*show file path according static boolean showAbsolutePath*/
+    /**
+     * Returns the file path for display purposes.
+     */
     private String showName(){
        return this.getAbsolutePath().substring(this.getBaseFolderPath().length()+1);
     }

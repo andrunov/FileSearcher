@@ -104,6 +104,13 @@ public class Difference {
     }
 
 
+    /**
+     * Calculates the letter-level similarity between two strings using the Levenshtein distance.
+     *
+     * @param str1 the first string
+     * @param str2 the second string
+     * @return the Levenshtein distance
+     */
     private int getLevensteinDistance(String str1, String str2) {
         int[][] matrix = new int[str1.length() + 1][str2.length() + 1];
 

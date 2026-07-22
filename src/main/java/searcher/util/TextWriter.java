@@ -14,10 +14,14 @@ import java.util.ResourceBundle;
  */
 public class TextWriter {
 
-    /*link to fileComparer*/
+    /**
+     * Reference to the file searcher whose results will be written.
+     */
     private FileSearcher comparer;
 
-    /*encoding*/
+    /**
+     * The output encoding to use.
+     */
     private String encoding;
 
     /**
@@ -41,7 +45,9 @@ public class TextWriter {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         try{
             PrintWriter writer = new PrintWriter(comparer.getReportName(), "UTF-8");
-            /*condition for single directory comparing*/
+            /**
+             * Choose format based on comparison type.
+             */
             if (this.comparer.isSingleDirCompare())
             {
                 printHeadSingleDirectory(writer);
@@ -51,40 +57,55 @@ public class TextWriter {
                 printSchemeTwoDirectory(writer);
             }
 
-            /*1-st level - 100 equality*/
+            /**
+             * Level 1: Full equality
+             */
             printTitle(writer,resourceBundle.getString("1stLevelEquality"));
             printFileList(writer,this.comparer.getFullEquality());
 
-            /*2 level - 100% names equality*/
+            /**
+             * Level 2: 100% name equality
+             */
             printTitle(writer,resourceBundle.getString("2ndLevelEquality"));
             printFileList(writer,this.comparer.getNameEquality());
 
-            /*3 level - 100% sizes equality*/
+            /**
+             * Level 3: 100% size equality
+             */
             printTitle(writer,resourceBundle.getString("3thLevelEquality"));
             printFileList(writer,this.comparer.getSizeEquality());
 
-            /*4 level - very high similarity of names*/
+            /**
+             * Level 4: Very high name similarity
+             */
             printTitle(writer,resourceBundle.getString("4thLevelEquality"));
             printFileList(writer,this.comparer.getNameSimilarityHighest());
 
-            /*5 level - high similarity of names*/
+            /**
+             * Level 5: High name similarity
+             */
             printTitle(writer,resourceBundle.getString("5thLevelEquality"));
             printFileList(writer,this.comparer.getNameSimilarityHigh());
 
-            /*6 level - middle similarity of names*/
+            /**
+             * Level 6: Middle name similarity
+             */
             if (this.comparer.isShowSimilarityMiddle()) {
                 printTitle(writer, resourceBundle.getString("6thLevelEquality"));
                 printFileList(writer, this.comparer.getNameSimilarityMiddle());
             }
 
-            /*7 level - low similarity of names*/
+            /**
+             * Level 7: Low name similarity
+             */
             if (this.comparer.isShowSimilarityLow()) {
                 printTitle(writer, resourceBundle.getString("7thLevelEquality"));
                 printFileList(writer, this.comparer.getNameSimilarityLow());
             }
 
-            /*8 level - no equalities
-            * in this point in this.startDirectory is only filesInfo that no has similarities */
+            /**
+             * Level 8: No similarities found
+             */
             if (!this.comparer.isSingleDirCompare()) {
                 printTitle(writer, getNotFoundDescription());
                 printNoSimilarList(writer, this.comparer.getNoSimilarity());
@@ -100,7 +121,9 @@ public class TextWriter {
 
 
 
-    /*head for single-directory case*/
+    /**
+     * Writes the header for a single-directory report.
+     */
     private void printHeadSingleDirectory(PrintWriter writer) {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         String title = resourceBundle.getString("Analyzed")
@@ -123,7 +146,9 @@ public class TextWriter {
         writer.println("\r\n***********************************************************************************************************");
     }
 
-    /*head for two directory case*/
+    /**
+     * Writes the header for a two-directory report.
+     */
     private void printHeadTwoDirectory(PrintWriter writer) {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         String title1 = resourceBundle.getString("Analyzed")
@@ -156,7 +181,9 @@ public class TextWriter {
         writer.println("\r\n***********************************************************************************************************");
     }
 
-    /*print schema for single-directory case*/
+    /**
+     * Prints the schema for a single-directory case.
+     */
     private void printSchemeSingleDirectory(PrintWriter writer){
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         writer.print(" ---------------------------------------------------------------------------------------------------------");
@@ -170,7 +197,9 @@ public class TextWriter {
         writer.print("\r\n ---------------------------------------------------------------------------------------------------------");
     }
 
-    /*print schema for two-directory case*/
+    /**
+     * Prints the schema for a two-directory case.
+     */
     private void printSchemeTwoDirectory(PrintWriter writer) {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         writer.print(" ---------------------------------------------------------------------------------------------------------");
@@ -208,7 +237,9 @@ public class TextWriter {
         writer.print("\r\n ---------------------------------------------------------------------------------------------------------");
     }
 
-    /*print title*/
+    /**
+     * Prints a section title in the report.
+     */
     private void printTitle(PrintWriter writer,String title){
         writer.println();
         writer.println();
@@ -218,7 +249,9 @@ public class TextWriter {
         writer.println("\r\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
-    /*print title*/
+    /**
+     * Prints a multi-line section title in the report.
+     */
     private void printTitle(PrintWriter writer,List<String> titles){
         writer.println();
         writer.println();
@@ -230,7 +263,9 @@ public class TextWriter {
         writer.println("\r\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
-    /*print result of files were found*/
+    /**
+     * Prints the count of found files.
+     */
     private void printFound(PrintWriter writer, int quantity){
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         if (quantity==0){
@@ -241,7 +276,9 @@ public class TextWriter {
         writer.println("\r\n***********************************************************************************************************");
     }
 
-    /*print list*/
+    /**
+     * Prints a list of files to the report.
+     */
     private void printFileList(PrintWriter writer, List<? extends Comparable> fileNameList){
         printFound(writer,fileNameList.size());
         for (Comparable fileName : fileNameList)
@@ -250,7 +287,9 @@ public class TextWriter {
         }
     }
 
-    /*print list of files that not have similariries*/
+    /**
+     * Prints files that have no similarities.
+     */
     private void printNoSimilarList(PrintWriter writer, List<FileInfo> fileNameList){
         printFound(writer,fileNameList.size());
         int counter = 0;

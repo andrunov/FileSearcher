@@ -11,7 +11,10 @@ import java.util.List;
  */
 public class Sorter {
 
-    /*comparator use only for sort List<FileInfo>, not for compare FileInfo objects */
+    /**
+     * Comparator for sorting report rows by similarity and path.
+     * Used only for sorting, not for comparing individual FileInfo objects.
+     */
     private static Comparator<ReportTableRow> rowTableDataComparator;
 
     static {
