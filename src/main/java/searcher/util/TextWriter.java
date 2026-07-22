@@ -45,9 +45,7 @@ public class TextWriter {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         try{
             PrintWriter writer = new PrintWriter(comparer.getReportName(), "UTF-8");
-            /**
-             * Choose format based on comparison type.
-             */
+            /*condition for single directory comparing*/
             if (this.comparer.isSingleDirCompare())
             {
                 printHeadSingleDirectory(writer);
@@ -57,55 +55,40 @@ public class TextWriter {
                 printSchemeTwoDirectory(writer);
             }
 
-            /**
-             * Level 1: Full equality
-             */
+            /*1-st level - 100 equality*/
             printTitle(writer,resourceBundle.getString("1stLevelEquality"));
             printFileList(writer,this.comparer.getFullEquality());
 
-            /**
-             * Level 2: 100% name equality
-             */
+            /*2 level - 100% names equality*/
             printTitle(writer,resourceBundle.getString("2ndLevelEquality"));
             printFileList(writer,this.comparer.getNameEquality());
 
-            /**
-             * Level 3: 100% size equality
-             */
+            /*3 level - 100% sizes equality*/
             printTitle(writer,resourceBundle.getString("3thLevelEquality"));
             printFileList(writer,this.comparer.getSizeEquality());
 
-            /**
-             * Level 4: Very high name similarity
-             */
+            /*4 level - very high similarity of names*/
             printTitle(writer,resourceBundle.getString("4thLevelEquality"));
             printFileList(writer,this.comparer.getNameSimilarityHighest());
 
-            /**
-             * Level 5: High name similarity
-             */
+            /*5 level - high similarity of names*/
             printTitle(writer,resourceBundle.getString("5thLevelEquality"));
             printFileList(writer,this.comparer.getNameSimilarityHigh());
 
-            /**
-             * Level 6: Middle name similarity
-             */
+            /*6 level - middle similarity of names*/
             if (this.comparer.isShowSimilarityMiddle()) {
                 printTitle(writer, resourceBundle.getString("6thLevelEquality"));
                 printFileList(writer, this.comparer.getNameSimilarityMiddle());
             }
 
-            /**
-             * Level 7: Low name similarity
-             */
+            /*7 level - low similarity of names*/
             if (this.comparer.isShowSimilarityLow()) {
                 printTitle(writer, resourceBundle.getString("7thLevelEquality"));
                 printFileList(writer, this.comparer.getNameSimilarityLow());
             }
 
-            /**
-             * Level 8: No similarities found
-             */
+            /*8 level - no equalities
+            * in this point in this.startDirectory is only filesInfo that no has similarities */
             if (!this.comparer.isSingleDirCompare()) {
                 printTitle(writer, getNotFoundDescription());
                 printNoSimilarList(writer, this.comparer.getNoSimilarity());
