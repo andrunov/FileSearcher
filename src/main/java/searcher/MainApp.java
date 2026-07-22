@@ -1,9 +1,9 @@
 package searcher;
 
 /**
- * Class with main method
+ * Entry point for the JavaFX desktop application.
+ * Loads the main window, manages application settings, and opens the settings dialog.
  */
-
 import searcher.controller.MainController;
 import searcher.controller.SettingsController;
 import searcher.model.Settings;
@@ -22,7 +22,9 @@ import java.util.ResourceBundle;
 
 //TODO 8. Сделать рефакторинг переменных и методов
 
-/*Main app JavaFX class */
+/**
+ * Main JavaFX application class.
+ */
 public class MainApp extends Application {
 
     /*primary app stage*/
@@ -36,12 +38,20 @@ public class MainApp extends Application {
 
     private Settings settings;
 
-    /*main method*/
+    /**
+     * Launches the application.
+     *
+     * @param args command-line arguments passed to JavaFX
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
-    /*entry JavaFX method*/
+    /**
+     * Initializes the primary stage and loads the persisted settings.
+     *
+     * @param primaryStage the window used by the application
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -65,7 +75,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * open main window
+     * Loads the main window layout from FXML and wires the controller to the application.
+     *
+     * @param locale the locale used for the UI resources
      */
     public void initRootLayout(Locale locale) {
         try {
@@ -94,7 +106,11 @@ public class MainApp extends Application {
         }
     }
 
-    /*open settings window*/
+    /**
+     * Opens the settings dialog for the application.
+     *
+     * @param resourceBundle localized resources used by the dialog
+     */
     public void showSettingsEditDialog(ResourceBundle resourceBundle) {
         try {
             // Load root layout from fxml file.
@@ -130,7 +146,11 @@ public class MainApp extends Application {
         }
     }
 
-    /*getter for primary stage*/
+    /**
+     * Returns the primary application window.
+     *
+     * @return the primary stage
+     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }

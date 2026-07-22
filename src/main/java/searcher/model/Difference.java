@@ -3,12 +3,21 @@ package searcher.model;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Calculates the degree of similarity between two word sequences.
+ */
 public class Difference {
 
     private List<WordInfo> firstList;
 
     private List<WordInfo> secondList;
 
+    /**
+     * Creates a similarity comparison between two word lists.
+     *
+     * @param firstList the first word list
+     * @param secondList the second word list
+     */
     public Difference(List<WordInfo> firstList, List<WordInfo> secondList) {
         this.firstList = firstList;
         this.secondList = secondList;
@@ -20,6 +29,12 @@ public class Difference {
      * however the order of words may be different)
      * return 0 means that phrases are definitely indifferent
      * return value in range from 1 nj 99 means that phrases are similar in that degree */
+    /**
+     * Computes the similarity percentage between the two word lists.
+     *
+     * @param exactWordMatch {@code true} to disable fuzzy matching
+     * @return a similarity score between 0 and 100
+     */
     public int getСoincidence(boolean exactWordMatch) {
         List<WordInfo> shortList;
         List<WordInfo> longList;

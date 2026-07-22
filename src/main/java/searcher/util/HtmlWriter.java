@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Class for output html report
+ * Writes HTML reports for file search results.
  */
 public class HtmlWriter {
 
@@ -72,14 +72,23 @@ public class HtmlWriter {
     /*encoding*/
     private String encoding;
 
-    /*constructor*/
+    /**
+     * Creates an HTML writer for the given searcher.
+     *
+     * @param comparer the searcher whose results will be exported
+     * @param encoding the output encoding
+     */
     public HtmlWriter(FileSearcher comparer, String encoding) {
         this.comparer = comparer;
         this.encoding = encoding;
     }
 
 
-    /*write logic*/
+    /**
+     * Writes the current search results to an HTML report.
+     *
+     * @return {@code true} when the report was written successfully
+     */
     public boolean writeHtmlReport(){
         boolean result = false;
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();

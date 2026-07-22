@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Class for custom sorters
+ * Provides sorting helpers for report rows.
  */
 public class Sorter {
 
@@ -27,6 +27,11 @@ public class Sorter {
         };
     }
 
+    /**
+     * Sorts the report rows by similarity score and path.
+     *
+     * @param reportTableRowList the rows to sort
+     */
     public static void sort(List<ReportTableRow> reportTableRowList) {
         Collections.sort(reportTableRowList, rowTableDataComparator);
     }

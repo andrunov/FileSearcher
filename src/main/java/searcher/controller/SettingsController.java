@@ -15,7 +15,9 @@ import javafx.stage.Window;
 
 import java.util.ResourceBundle;
 
-//*Controller class for SettingsWiew.fxml window*/
+/**
+ * Controller for the settings dialog.
+ */
 public class SettingsController {
 
     private Settings settings;
@@ -78,14 +80,26 @@ public class SettingsController {
 
 
     /*set language pocket*/
+    /**
+     * Assigns the localized resources used by the dialog.
+     *
+     * @param resourceBundle the resource bundle to use
+     */
     public void setResourceBundle(ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
     }
 
+    /**
+     * Sets the main application reference.
+     *
+     * @param mainApp the main application instance
+     */
     public void setMainApp(MainApp mainApp) {
     }
 
-    /*set values of class fields*/
+    /**
+     * Populates the dialog controls with the current settings values.
+     */
     public void setFieldsValues(){
         this.filterTextField.setText(Formatter.getArrayAsString(this.settings.getAllowedExtensions()));
         this.exactWordMatchLbl.setSelected(this.settings.isExactWordMatch());
@@ -110,20 +124,26 @@ public class SettingsController {
 
 
     /**
-     * set dialog stage for this window
+     * Sets the dialog stage for this window.
+     *
+     * @param dialogStage the dialog window stage
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
 
+    /**
+     * Injects the settings object used by the dialog.
+     *
+     * @param settings the settings instance to edit
+     */
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
 
-
     /**
-     * Cancel button click handle
+     * Handles the cancel button click.
      */
     @FXML
     private void cancel() {
@@ -134,7 +154,7 @@ public class SettingsController {
     }
 
     /**
-     * Save button click handle
+     * Handles the save button click.
      */
     @FXML
     private void save() {

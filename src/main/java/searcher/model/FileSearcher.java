@@ -12,10 +12,16 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Program for find duplicate files in two different directories
+ * Searches directories for files and directories that resemble a target name.
  */
 public class FileSearcher extends Task<List<ReportTableRow>> {
 
+    /**
+     * Creates a file search task configured for a single search phrase.
+     *
+     * @param controller the main controller that launched the search
+     * @return a configured search task
+     */
     public static FileSearcher createForSearch(MainController controller) {
         tempDictionary = new HashMap<>();
         String searchDirPath = controller.getFirstDirectory().getAbsolutePath();
@@ -42,6 +48,12 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
         return comparer;
     }
 
+    /**
+     * Creates a file search task configured for directory-to-directory comparison.
+     *
+     * @param controller the main controller that launched the comparison
+     * @return a configured comparison task
+     */
     public static FileSearcher createForCompare(MainController controller) {
         tempDictionary = new HashMap<>();
         FileSearcher comparer = new FileSearcher(true);
@@ -88,10 +100,20 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     private boolean exactWordMatch;
 
 
+    /**
+     * Returns the target file or directory being searched for.
+     *
+     * @return the target item
+     */
     public FileInfo getFileToSearch() {
         return fileToSearch;
     }
 
+    /**
+     * Sets the target file or directory being searched for.
+     *
+     * @param fileToSearch the target item
+     */
     public void setFileToSearch(FileInfo fileToSearch) {
         this.fileToSearch = fileToSearch;
     }
@@ -162,126 +184,273 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
 
     /*getters and setters*/
 
+    /**
+     * Returns the starting directory path.
+     *
+     * @return the starting directory path
+     */
     public String getStartDirectoryName() {
         return startDirectoryName;
     }
 
+    /**
+     * Returns the target directory path.
+     *
+     * @return the target directory path
+     */
     public String getEndDirectoryName() {
         return endDirectoryName;
     }
 
+    /**
+     * Sets the starting directory path and updates the report name.
+     *
+     * @param startDirectoryName the starting directory path
+     */
     public void setStartDirectoryName(String startDirectoryName) {
         this.startDirectoryName = startDirectoryName;
         setReportName(startDirectoryName);
     }
 
+    /**
+     * Sets the target directory path.
+     *
+     * @param endDirectoryName the target directory path
+     */
     public void setEndDirectoryName(String endDirectoryName) {
         this.endDirectoryName = endDirectoryName;
     }
 
+    /**
+     * Sets the resource bundle used for localized messages.
+     *
+     * @param resourceBundle the resource bundle
+     */
     public void setResourceBundle(ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
     }
 
+    /**
+     * Returns the resource bundle used for localized messages.
+     *
+     * @return the resource bundle
+     */
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
     }
 
+    /**
+     * Sets the report file path based on the provided directory.
+     *
+     * @param startDirectoryName the directory used to build the report path
+     */
     public void setReportName(String startDirectoryName) {
         this.reportName = startDirectoryName + "\\report.html";
     }
 
+    /**
+     * Returns the report file path.
+     *
+     * @return the report path
+     */
     public String getReportName() {
         return reportName;
     }
 
+    /**
+     * Returns the active file filter.
+     *
+     * @return the file filter
+     */
     public FileFilter getFilter() {
         return filter;
     }
 
+    /**
+     * Sets the active file filter.
+     *
+     * @param filter the file filter to use
+     */
     public void setFilter(FileFilter filter) {
         this.filter = filter;
     }
 
+    /**
+     * Returns the current search report rows.
+     *
+     * @return the report rows
+     */
     public List<ReportTableRow> getReport() {
         return report;
     }
 
+    /**
+     * Returns files that matched exactly.
+     *
+     * @return the exact-match files
+     */
     public List<FileInfo> getFullEquality() {
         return fullEquality;
     }
 
+    /**
+     * Returns files that matched by name.
+     *
+     * @return the name-matched files
+     */
     public List<FileInfo> getNameEquality() {
         return nameEquality;
     }
 
+    /**
+     * Returns files that matched by size.
+     *
+     * @return the size-matched files
+     */
     public List<FileInfo> getSizeEquality() {
         return sizeEquality;
     }
 
+    /**
+     * Returns files with a high similarity score.
+     *
+     * @return the high-similarity files
+     */
     public List<FileInfo> getNameSimilarityHigh() {
         return nameSimilarityHigh;
     }
 
+    /**
+     * Returns files with a low similarity score.
+     *
+     * @return the low-similarity files
+     */
     public List<FileInfo> getNameSimilarityLow() {
         return nameSimilarityLow;
     }
 
+    /**
+     * Returns files with no detected similarity.
+     *
+     * @return the files with no similarity
+     */
     public List<FileInfo> getNoSimilarity() {
         return noSimilarities;
     }
 
+    /**
+     * Returns the files discovered in the start directory.
+     *
+     * @return the start directory files
+     */
     public List<FileInfo> getStartDirectory() {
         return startDirectory;
     }
 
+    /**
+     * Returns the files discovered in the end directory.
+     *
+     * @return the end directory files
+     */
     public List<FileInfo> getEndDirectory() {
         return endDirectory;
     }
 
+    /**
+     * Indicates whether the search compares only a single directory.
+     *
+     * @return {@code true} for single-directory comparisons
+     */
     public boolean isSingleDirCompare() {
         return singleDirCompare;
     }
 
+    /**
+     * Returns files with a middle similarity score.
+     *
+     * @return the middle-similarity files
+     */
     public List<FileInfo> getNameSimilarityMiddle() {
         return nameSimilarityMiddle;
     }
 
+    /**
+     * Returns files with the highest similarity score.
+     *
+     * @return the highest-similarity files
+     */
     public List<FileInfo> getNameSimilarityHighest() {
         return nameSimilarityHighest;
     }
 
-
+    /**
+     * Indicates whether middle-range similarity results are shown.
+     *
+     * @return {@code true} when middle similarity groups are shown
+     */
     public boolean isShowSimilarityMiddle() {
         return showSimilarityMiddle;
     }
 
+    /**
+     * Enables or disables the display of middle similarity results.
+     *
+     * @param showSimilarityMiddle {@code true} to show middle similarity results
+     */
     public void setShowSimilarityMiddle(boolean showSimilarityMiddle) {
         this.showSimilarityMiddle = showSimilarityMiddle;
     }
 
+    /**
+     * Indicates whether low-range similarity results are shown.
+     *
+     * @return {@code true} when low similarity groups are shown
+     */
     public boolean isShowSimilarityLow() {
         return showSimilarityLow;
     }
 
+    /**
+     * Enables or disables the display of low similarity results.
+     *
+     * @param showSimilarityLow {@code true} to show low similarity results
+     */
     public void setShowSimilarityLow(boolean showSimilarityLow) {
         this.showSimilarityLow = showSimilarityLow;
     }
 
+    /**
+     * Returns the temporary dictionary used during indexing.
+     *
+     * @return the temporary dictionary
+     */
     public static Map<String, WordInfo> getTempDictionary() {
         return tempDictionary;
     }
 
+    /**
+     * Sets whether exact word matching is used.
+     *
+     * @param exactWordMatch {@code true} to require exact word matching
+     */
     public void setExactWordMatch(boolean exactWordMatch) {
         this.exactWordMatch = exactWordMatch;
     }
 
+    /**
+     * Returns the active skin for the current controller context.
+     *
+     * @return the active skin
+     */
     public Skin getSkin () {
         return this.controller.getSettings().getSkin();
     }
 
 
     /*this method contains main logic of comparing*/
+    /**
+     * Runs the full directory search and prepares the report.
+     */
     public void search(){
 
         /* memory and performance test
@@ -416,6 +585,9 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     /* clear fields and collections
     * no need in multi-thread version
     * */
+    /**
+     * Clears the current search state and collected data.
+     */
     public void clean() {
         this.startDirectoryName = null;
         this.endDirectoryName = null;
