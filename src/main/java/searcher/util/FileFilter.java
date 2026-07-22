@@ -3,34 +3,52 @@ package searcher.util;
 import java.io.File;
 
 /**
- * Class for accept file according recieved String[] filter of file extensions
+ * Filters files and directories based on configured extensions.
  */
 public class FileFilter {
 
     /*file extensions*/
     private String[] extensions;
 
-    /*default constructor*/
+    /**
+     * Creates an empty filter that accepts everything.
+     */
     public FileFilter() {
     }
 
-    /*constructor*/
+    /**
+     * Creates a filter for the provided extensions.
+     *
+     * @param extensions the allowed extensions
+     */
     public FileFilter(String[] extensions) {
         this.extensions = extensions;
     }
 
-    /*getters and setters*/
-
+    /**
+     * Returns the configured extensions.
+     *
+     * @return the extensions array
+     */
     public String[] getExtensions() {
         return extensions;
     }
 
+    /**
+     * Sets the configured extensions.
+     *
+     * @param extensions the extensions to allow
+     */
     public void setExtensions(String[] extensions) {
         this.extensions = extensions;
     }
 
-    /*accepts all files according String[] extensions
-    * accepts folders*/
+    /**
+     * Determines whether the supplied file path should be accepted.
+     *
+     * @param absoluteFilePath the absolute path to evaluate
+     * @return {@code true} if the path matches the filter or is a directory
+     */
     public boolean accept(String absoluteFilePath){
 
         if ((this.extensions==null)||(this.extensions.length == 0)) return true;

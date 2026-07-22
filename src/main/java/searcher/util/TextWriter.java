@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Class for output strings info
+ * Writes search results to a plain text report.
  */
 public class TextWriter {
 
@@ -20,13 +20,22 @@ public class TextWriter {
     /*encoding*/
     private String encoding;
 
-    /*constructor*/
+    /**
+     * Creates a text writer for a given searcher instance.
+     *
+     * @param comparer the searcher whose results will be written
+     * @param encoding the output encoding
+     */
     public TextWriter(FileSearcher comparer, String encoding) {
         this.comparer = comparer;
         this.encoding = encoding;
     }
 
-    /*write logic*/
+    /**
+     * Writes the current search result set to a report file.
+     *
+     * @return {@code true} when the report was written successfully
+     */
     public boolean write(){
         boolean result = false;
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();

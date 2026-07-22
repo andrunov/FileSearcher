@@ -2,6 +2,9 @@ package searcher.view;
 
 import java.util.ResourceBundle;
 
+/**
+ * Enumerates available application skins and provides helper methods for localization.
+ */
 public enum Skin {
     CIAN("Cian"),
     GRAY("Gray"),
@@ -15,10 +18,21 @@ public enum Skin {
         this.repr = repr;
     }
 
+    /**
+     * Returns the CSS skin name.
+     *
+     * @return the skin identifier used in stylesheet names
+     */
     public String getRepr() {
         return repr;
     }
 
+    /**
+     * Returns the localized labels for all skins.
+     *
+     * @param resourceBundle the bundle used for localization
+     * @return the labels for each skin
+     */
     public static String[] getLocaleValues(ResourceBundle resourceBundle) {
         Skin[] values = Skin.values();
         String[] result = new String[values.length];
@@ -28,6 +42,13 @@ public enum Skin {
         return result;
     }
 
+    /**
+     * Resolves a skin from its localized label.
+     *
+     * @param resourceBundle the bundle used for localization
+     * @param value the localized label to resolve
+     * @return the matching skin, or {@code null} if nothing matches
+     */
     public static Skin getByLocalValue(ResourceBundle resourceBundle, String value) {
         Skin[] values = Skin.values();
         Skin result = null;
@@ -39,10 +60,22 @@ public enum Skin {
     }
 
 
+    /**
+     * Returns the localized label for this skin.
+     *
+     * @param resourceBundle the bundle used for localization
+     * @return the localized skin label
+     */
     public String getLocale(ResourceBundle resourceBundle) {
         return resourceBundle.getString(this.toString());
     }
 
+    /**
+     * Returns the border color for a given skin.
+     *
+     * @param skin the skin whose border color is requested
+     * @return the corresponding CSS border color
+     */
     public static String getTableBorderColor(Skin skin) {
         if (skin == CIAN) return "navy";
         else if (skin == GRAY) return "#5b5b5b";
@@ -52,6 +85,12 @@ public enum Skin {
         else return "navy";
     }
 
+    /**
+     * Returns the background color used for report tables.
+     *
+     * @param skin the skin whose background color is requested
+     * @return the CSS background color
+     */
     public static String getBgColor(Skin skin) {
         if (skin == CIAN) return "rgba(148, 182, 222, 0.25)";
         else if (skin == GRAY) return "rgba(192, 192, 192, 0.45)";
@@ -61,6 +100,12 @@ public enum Skin {
         else return "navy";
     }
 
+    /**
+     * Returns the text color used for report tables.
+     *
+     * @param skin the skin whose text color is requested
+     * @return the CSS text color
+     */
     public static String getTextColor(Skin skin) {
         if (skin == CIAN) return "black";
         else if (skin == GRAY) return "black";

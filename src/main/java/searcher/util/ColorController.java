@@ -1,7 +1,16 @@
 package searcher.util;
 
+/**
+ * Maps similarity values to background and text colors for the report UI.
+ */
 public class ColorController {
 
+    /**
+     * Returns the RGB background color for a given similarity score.
+     *
+     * @param similarity the similarity percentage
+     * @return the RGB color string
+     */
     public static String getBgRGB(int similarity) {
 
         int R = 0;
@@ -28,6 +37,12 @@ public class ColorController {
         return String.format("%s, %s, %s", R, G, B);
     }
 
+    /**
+     * Returns the RGB text color for a given similarity score.
+     *
+     * @param similarity the similarity percentage
+     * @return the RGB color string
+     */
     public static String getTextRGB(int similarity) {
 
         int R = 0;

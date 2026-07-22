@@ -30,7 +30,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-/*controller for MainView.fxml window*/
+/**
+ * Controller for the main search window.
+ */
 public class MainController implements Initializable {
 
     private static final int ROWS_RER_PAGE = 15;
@@ -119,7 +121,9 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Is called by the main application to give a reference back to itself.
+     * Stores a reference to the main application instance.
+     *
+     * @param mainApp the main application instance
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -161,6 +165,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Starts the search task asynchronously.
+     *
+     * @param deepCompare {@code true} to perform a deeper fuzzy comparison
+     */
     public void startSearchTask(boolean deepCompare) {
 
 
@@ -202,6 +211,11 @@ public class MainController implements Initializable {
         return result;
     }
 
+    /**
+     * Displays the search results and optionally starts a deeper search.
+     *
+     * @param report the search result rows to display
+     */
     public void showResult(List<ReportTableRow> report) {
         if (report.size() == 0
             && this.searchAttemptNumber < 2
@@ -300,26 +314,56 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Injects the application settings into the controller.
+     *
+     * @param settings the settings object to use
+     */
     public void setSettings(Settings settings) {
         this.settings = settings;
     }
 
+    /**
+     * Returns the application settings used by the controller.
+     *
+     * @return the settings object
+     */
     public Settings getSettings() {
         return this.settings;
     }
 
+    /**
+     * Stores the generated report name.
+     *
+     * @param reportName the report file name
+     */
     public void setReportName(String reportName) {
         this.reportName = reportName;
     }
 
+    /**
+     * Returns the selected first directory.
+     *
+     * @return the selected directory or {@code null}
+     */
     public File getFirstDirectory() {
         return firstDirectory;
     }
 
+    /**
+     * Returns the currently active resource bundle.
+     *
+     * @return the active resource bundle
+     */
     public ResourceBundle getResourceBundle() {
         return resourceBundle;
     }
 
+    /**
+     * Returns the current search phrase entered by the user.
+     *
+     * @return the trimmed search phrase
+     */
     public String getSearchPhrase() {
         return this.fileNameTextField.getText().trim();
     }
@@ -386,6 +430,9 @@ public class MainController implements Initializable {
         this.pagination.setStyle(newSize);
     };
 
+    /**
+     * Configures the results table columns and row rendering.
+     */
     public void setupResultTable() {
 
         this.tableResult.setPlaceholder(new Label(this.resourceBundle.getString("TableViewPlaceholder")));
@@ -453,6 +500,9 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * Updates the table labels after a locale change.
+     */
     public void updateResultTable() {
         this.tableResult.setPlaceholder(new Label(this.resourceBundle.getString("TableViewPlaceholder")));
         ObservableList<TableColumn<ReportTableRow, String>> columns = this.tableResult.getColumns();
@@ -472,11 +522,19 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Configures the pagination control for the results view.
+     */
     public void setupPagination() {
         this.pagination.setPageCount(1);
         this.pagination.setPageFactory(this::createPage);
     }
 
+    /**
+     * Applies persisted settings to the main UI.
+     *
+     * @param settings the settings instance containing layout and column preferences
+     */
     public void loadSettings(Settings settings) {
         this.settings = settings;
         this.splitPane.setDividerPosition(0, this.settings.getSplitPaneDividerPositions());
@@ -489,6 +547,9 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Persists the current UI state into the settings object.
+     */
     public void saveSettings() {
         this.settings.setInitialFirstDir(this.firstDirectory);
         this.settings.setSplitPaneDividerPositions(this.splitPane.getDividerPositions()[0]);

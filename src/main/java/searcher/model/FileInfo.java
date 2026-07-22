@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Class for hold info about file
+ * Holds metadata about a file or directory used during the search process.
  */
 public class FileInfo implements Comparable<FileInfo>
 {
@@ -40,6 +40,12 @@ public class FileInfo implements Comparable<FileInfo>
         return result;
     }
 
+    /**
+     * Extracts the extension from a file name.
+     *
+     * @param fileName the file name to inspect
+     * @return the file extension or {@code null} when none is present
+     */
     public static String extractFileExtension(String fileName){
         int dotPosition = fileName.lastIndexOf('.');
         String result = null;
@@ -76,6 +82,12 @@ public class FileInfo implements Comparable<FileInfo>
         return result;
     }
 
+    /**
+     * Adds words from a list into the shared temporary dictionary.
+     *
+     * @param list the words to index
+     * @return the corresponding {@link WordInfo} objects
+     */
     public static List<WordInfo> putWordsIntoDictionary(List<String> list) {
         List<WordInfo> result = new ArrayList<>();
         for (String string : list) {
@@ -116,11 +128,20 @@ public class FileInfo implements Comparable<FileInfo>
     /*field-marker that this object has participate in compares*/
     private boolean accepted;
 
-    /*default constructor*/
+    /**
+     * Creates an empty file info instance.
+     */
     public FileInfo() {
     }
 
-    /*constructor*/
+    /**
+     * Creates a file info instance for a file or directory.
+     *
+     * @param absolutePath the absolute path of the item
+     * @param name the item's name
+     * @param size the size in bytes
+     * @param isDirectory {@code true} for directories
+     */
     public FileInfo(String absolutePath, String name, long size, boolean isDirectory) {
         this.ID = FileInfo.fileInfoCounter++;
         this.absolutePath = absolutePath;
@@ -131,7 +152,11 @@ public class FileInfo implements Comparable<FileInfo>
         this.accepted = false;
     }
 
-    /*constructor*/
+    /**
+     * Creates a file info instance from a path-like name.
+     *
+     * @param name the file or directory name
+     */
     public FileInfo(String name) {
         this(name, name, 0, false);
         this.ID = FileInfo.fileInfoCounter++;
@@ -144,51 +169,103 @@ public class FileInfo implements Comparable<FileInfo>
         this.accepted = false;
     }
 
-    /*getters and setters*/
-
+    /**
+     * Returns the absolute path of the item.
+     *
+     * @return the absolute path
+     */
     public String getAbsolutePath() {
         return absolutePath;
     }
 
+    /**
+     * Sets the absolute path of the item.
+     *
+     * @param absolutePath the new absolute path
+     */
     public void setAbsolutePath(String absolutePath) {
         this.absolutePath = absolutePath;
     }
 
+    /**
+     * Returns the item name from the absolute path.
+     *
+     * @return the file or directory name
+     */
     public String getName()
     {
         int lastSlash = this.absolutePath.lastIndexOf('\\') ;
         return this.absolutePath.substring(lastSlash + 1);
     }
 
+    /**
+     * Returns the size of the item in bytes.
+     *
+     * @return the size in bytes
+     */
     public long getSize() {
         return size;
     }
 
+    /**
+     * Indicates whether the item is a directory.
+     *
+     * @return {@code true} for directories
+     */
     public boolean isDirectory() {
         return isDirectory;
     }
 
+    /**
+     * Formats the size for display.
+     *
+     * @return the formatted size string
+     */
     public String getSizeFormatted() {
         return Formatter.doubleFormat("###,###,###,###,###.##",this.getSize());
     }
 
+    /**
+     * Returns the file extension, if available.
+     *
+     * @return the extension or {@code null}
+     */
     public String getExtension() {
         return extension;
     }
 
+    /**
+     * Sets the size in bytes.
+     *
+     * @param size the new size
+     */
     public void setSize(long size) {
         this.size = size;
     }
 
-
+    /**
+     * Indicates whether the item was accepted during matching.
+     *
+     * @return {@code true} if accepted
+     */
     public boolean isAccepted() {
         return accepted;
     }
 
+    /**
+     * Marks the item as accepted or rejected for matching.
+     *
+     * @param accepted {@code true} to accept the item
+     */
     public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
 
+    /**
+     * Returns the parent folder path.
+     *
+     * @return the folder path
+     */
     public String getBaseFolderPath() {
         int lastSlash = this.absolutePath.lastIndexOf('\\') ;
         return this.absolutePath.substring(0, lastSlash);
@@ -245,11 +322,21 @@ public class FileInfo implements Comparable<FileInfo>
        return this.getAbsolutePath().substring(this.getBaseFolderPath().length()+1);
     }
 
+    /**
+     * Returns the list of words extracted from the item's name.
+     *
+     * @return the extracted word list
+     */
     public List<WordInfo> getdWords() {
         return dWords;
     }
 
-
+    /**
+     * Compares the word sequences of this item and another item.
+     *
+     * @param other the other item to compare against
+     * @return {@code true} if the extracted word sequences match
+     */
     public boolean nameIsEquals(FileInfo other) {
         if (this.dWords.size() != other.getdWords().size()) return false;
         for (int i = 0; i < this.dWords.size(); i++) {
