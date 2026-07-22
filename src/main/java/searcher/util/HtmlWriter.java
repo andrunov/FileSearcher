@@ -66,10 +66,14 @@ public class HtmlWriter {
         return result;
     }
 
-    /*link to fileComparer*/
+    /**
+     * Reference to the file searcher whose results will be exported.
+     */
     private FileSearcher comparer;
 
-    /*encoding*/
+    /**
+     * The output encoding to use.
+     */
     private String encoding;
 
     /**
@@ -110,15 +114,23 @@ public class HtmlWriter {
         return result;
     }
 
-    /*
-     * extract name of directory from file path*/
+    /**
+     * Extracts the directory path from a full file path.
+     *
+     * @param filePath the full file path
+     * @return the directory portion
+     */
     private String getDirectory(String filePath) {
         int lastSlashPosition = filePath.lastIndexOf('\\') ;
         return filePath.substring(0, lastSlashPosition + 1);
     }
 
-    /*
-    * extract short name of file or directory from file path*/
+    /**
+     * Extracts the short name from a full file path.
+     *
+     * @param filePath the full file path
+     * @return the short name
+     */
     private String getShortName(String filePath) {
         int lastSlashPosition = filePath.lastIndexOf('\\');
         return filePath.substring(0, lastSlashPosition);
@@ -126,7 +138,9 @@ public class HtmlWriter {
 
 
 
-    /* HTML title for single directory case*/
+    /**
+     * Writes the title for a single-directory search report.
+     */
     private void printHtmlTitleSingle(PrintWriter writer, int filesFound) {
         Skin skin = this.comparer.getSkin();
         String textColor = Skin.getTextColor(skin);
@@ -150,7 +164,9 @@ public class HtmlWriter {
                         resourceBundle.getString("Files"));
     }
 
-    /* HTML title for two directory case*/
+    /**
+     * Writes the title for a two-directory comparison report.
+     */
     private void printHtmlTitleTwo(PrintWriter writer) {
         ResourceBundle resourceBundle = this.comparer.getResourceBundle();
         writer.printf(twoDirectory,  //format string

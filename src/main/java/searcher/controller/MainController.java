@@ -43,41 +43,57 @@ public class MainController implements Initializable {
     @FXML
     private TextField fileNameTextField;
 
-    /*label of first directory*/
+    /**
+     * Label displaying the first selected directory.
+     */
     @FXML
     private Label firstDirLbl;
 
     @FXML
     private Button searchBtn;
 
-    /*button for firs directory selection*/
+    /**
+     * Button to select the first directory.
+     */
     @FXML
     private Button firstDirSelectBtn;
 
-    /*button for change language pocket*/
+    /**
+     * Button to change the application language.
+     */
     @FXML
     private Button changeLocalButton;
 
-    /*button for exit application*/
+    /**
+     * Button to open the search result file.
+     */
     @FXML
     private Button openResultBtn;
 
     @FXML
     private ProgressBar progressBar;
 
-    /*button for clear resources to default*/
+    /**
+     * Button to clear all fields to their default state.
+     */
     @FXML
     private Button clearBtn;
 
-    /*button for open settings window*/
+    /**
+     * Button to open the settings dialog.
+     */
     @FXML
     private Button settingsBtn;
 
-    /*button for open application info window*/
+    /**
+     * Button to show application information.
+     */
     @FXML
     private Button aboutBtn;
 
-    /*button for exit application*/
+    /**
+     * Button to exit the application.
+     */
     @FXML
     private Button exitBtn;
 
@@ -87,32 +103,42 @@ public class MainController implements Initializable {
     @FXML
     private Pagination pagination;
 
-    /*language pocket*/
+    /**
+     * Resource bundle for localized text.
+     */
     private ResourceBundle resourceBundle;
 
-    /*first choose directory for comparing*/
+    /**
+     * The first directory selected for searching.
+     */
     private File firstDirectory;
 
-    /*second choose directory for comparing*/
+    /**
+     * The second directory for comparison (unused in current version).
+     */
     private File secondDirectory;
 
-
-    /* Reference to the main application*/
+    /**
+     * Reference to the main application instance.
+     */
     private MainApp mainApp;
 
-    /*desktop uses for open files just from JavaFX application*/
+    /**
+     * Desktop instance for opening files from the application.
+     */
     private Desktop desktop;
 
     private  List<ReportTableRow> reportTableRowList;
 
     private Settings settings;
 
-
     private String reportName;
 
     private int searchAttemptNumber;
 
-    /*constructor*/
+    /**
+     * Creates a controller instance and initializes the desktop helper.
+     */
     public MainController() {
         this.reportTableRowList = new ArrayList<>();
         if (Desktop.isDesktopSupported()) {
@@ -129,7 +155,9 @@ public class MainController implements Initializable {
         this.mainApp = mainApp;
     }
 
-    /*choose first directory*/
+    /**
+     * Selects the first directory via a dialog.
+     */
     @FXML
     private void choseFirstDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -151,12 +179,17 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * Executes the search when the user presses Enter.
+     */
     @FXML
     private void onEnter() {
         this.executeSearch();
     }
 
-    /*start comparing procedure*/
+    /**
+     * Initiates the file search procedure.
+     */
     @FXML
     private void executeSearch(){
         if (this.checkFields()) {
@@ -250,14 +283,18 @@ public class MainController implements Initializable {
         this.progressBar.setVisible(false);
     }
 
-    /*initialize language pocket and set visibility to window elements*/
+    /**
+     * Initializes the controller and sets up the resource bundle.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.resourceBundle = resources;
         this.openResultBtn.setVisible(false);
     }
 
-    /*change pocket language*/
+    /**
+     * Changes the application locale between available languages.
+     */
     @FXML
     public void changeLocale(){
         if (this.settings.getLocale().equals("ru")){
@@ -275,7 +312,9 @@ public class MainController implements Initializable {
         updateLocalText();
     }
 
-    /*update text of window elements*/
+    /**
+     * Updates UI text after a locale change.
+     */
     private void updateLocalText(){
         if (this.firstDirectory != null) {
             this.firstDirLbl.setText(getDirInfo(firstDirectory));
@@ -294,7 +333,12 @@ public class MainController implements Initializable {
         this.updateResultTable();
     }
 
-    /**/
+    /**
+     * Converts a directory path to a display string.
+     *
+     * @param directory the directory to format
+     * @return the directory path or empty string
+     */
     private String getDirInfo(File directory){
         String result = "";
         if (directory != null) {
@@ -303,7 +347,12 @@ public class MainController implements Initializable {
         return result;
     }
 
-    /*return string-represent directory name with closest parent directory*/
+    /**
+     * Returns the parent directory and file name from a file path.
+     *
+     * @param filePath the absolute file path
+     * @return the formatted file info string
+     */
     private String getFileInfo(String filePath){
         String result = "";
         File file = new File(filePath);
@@ -368,7 +417,9 @@ public class MainController implements Initializable {
         return this.fileNameTextField.getText().trim();
     }
 
-    /*open saved txt-result file*/
+    /**
+     * Opens the saved report file using the system default application.
+     */
     @FXML
     private void openResult(){
         try {
@@ -379,7 +430,9 @@ public class MainController implements Initializable {
         }
     }
 
-    /*clear fields to default*/
+    /**
+     * Clears all search fields and results to the default state.
+     */
     @FXML
     private void clear(){
         this.firstDirectory = null;
@@ -392,25 +445,33 @@ public class MainController implements Initializable {
         this.openResultBtn.setVisible(false);
     }
 
-    /*open settings window*/
+    /**
+     * Opens the settings dialog.
+     */
     @FXML
     private void openSettings(){
         mainApp.showSettingsEditDialog(this.resourceBundle);
     }
 
-    /*show application info*/
+    /**
+     * Shows the application information dialog.
+     */
     @FXML
     private void showAppInfo(){
         Message.info(this.resourceBundle,"AboutApp");
     }
 
-    /*exit application*/
+    /**
+     * Exits the application.
+     */
     @FXML
     private void doExitApp(){
         this.mainApp.getPrimaryStage().close();
     }
 
-    /*listener for observe change height of main window */
+    /**
+     * Listener that adjusts font sizes when the window is resized.
+     */
     public ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
     {
         double newHeight = this.mainApp.getPrimaryStage().getHeight();
@@ -562,6 +623,12 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Creates a page for the results pagination.
+     *
+     * @param pageIndex the page index to render
+     * @return the bordered pane containing the table for this page
+     */
     private Node createPage(int pageIndex) {
 
         int fromIndex = pageIndex * ROWS_RER_PAGE;

@@ -7,7 +7,9 @@ import java.io.File;
  */
 public class FileFilter {
 
-    /*file extensions*/
+    /**
+     * The allowed file extensions.
+     */
     private String[] extensions;
 
     /**

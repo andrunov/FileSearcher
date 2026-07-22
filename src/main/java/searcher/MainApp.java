@@ -27,13 +27,19 @@ import java.util.ResourceBundle;
  */
 public class MainApp extends Application {
 
-    /*primary app stage*/
+    /**
+     * The primary window stage.
+     */
     private Stage primaryStage;
 
-    /*root layout element*/
+    /**
+     * The root layout container.
+     */
     private SplitPane rootLayout;
 
-    /*link to main controller*/
+    /**
+     * Reference to the main controller.
+     */
     private MainController mainController;
 
     private Settings settings;

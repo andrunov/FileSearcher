@@ -57,7 +57,6 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     public static FileSearcher createForCompare(MainController controller) {
         tempDictionary = new HashMap<>();
         FileSearcher comparer = new FileSearcher(true);
-        /*constructor. if extensions undefined filter no use*/
         comparer.controller = controller;
         String[] extensions = controller.getSettings().getAllowedExtensions();
         comparer.filter = new FileFilter(extensions);
@@ -66,9 +65,9 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     }
 
 
-        /*
-    * minimal percent of equal letters in two words
-    * that allow considering that words are similar*/
+    /**
+     * Minimum word similarity threshold for matching (in percent).
+     */
     private static final int WORD_SIMILARITY_COFF = 75;
 
     private MainController controller;
@@ -78,25 +77,39 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
 
     private final List<WordInfo> dictionary;
 
-    /*first directory path*/
+    /**
+     * The starting directory path for the search.
+     */
     private String startDirectoryName;
 
-    /*second directory path*/
+    /**
+     * The target directory path for comparison.
+     */
     private String endDirectoryName;
 
-    /*report path*/
+    /**
+     * The report file path.
+     */
     private String reportName;
 
-    /*Localization*/
+    /**
+     * Resource bundle for localized messages.
+     */
     private ResourceBundle resourceBundle;
 
-    /*first directory with files which we want to check for duplicate */
+    /**
+     * Files found in the start directory.
+     */
     private List<FileInfo> startDirectory = new ArrayList<>();
 
-    /*another directory where need to find duplicates files */
+    /**
+     * Files in the target directory to compare against.
+     */
     private List<FileInfo> endDirectory = new ArrayList<>();
 
-    /*show analyze by letters*/
+    /**
+     * Whether to use exact word matching or fuzzy matching.
+     */
     private boolean exactWordMatch;
 
 
@@ -118,46 +131,71 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
         this.fileToSearch = fileToSearch;
     }
 
-    /*  file that needs to de search
-    */
+    /**
+     * The file or directory being searched for.
+     */
     private FileInfo fileToSearch;
 
-    /*list for files matching by names and size, expect full equality*/
+    /**
+     * Files matching by names and size (100% equality).
+     */
     private List<FileInfo> fullEquality = new ArrayList<>();
 
-    /*list for files matching by names only*/
+    /**
+     * Files matching by names only.
+     */
     private List<FileInfo> nameEquality = new ArrayList<>();
 
-    /*list for files matching by sizes*/
+    /**
+     * Files matching by size only.
+     */
     private List<FileInfo> sizeEquality = new ArrayList<>();
 
-    /*list for files similar by names with highest similarity */
+    /**
+     * Files with highest name similarity.
+     */
     private List<FileInfo> nameSimilarityHighest = new ArrayList<>();
 
-    /*list for files similar by names with high similarity */
+    /**
+     * Files with high name similarity.
+     */
     private List<FileInfo> nameSimilarityHigh = new ArrayList<>();
 
-    /*list for files similar by names with middle similarity */
+    /**
+     * Files with middle-level name similarity.
+     */
     private List<FileInfo> nameSimilarityMiddle = new ArrayList<>();
 
-    /*list for files similar by names with low similarity */
+    /**
+     * Files with low name similarity.
+     */
     private List<FileInfo> nameSimilarityLow = new ArrayList<>();
 
-    /*list for files which no has similarities */
+    /**
+     * Files with no detected similarities.
+     */
     private List<FileInfo> noSimilarities = new ArrayList<>();
 
     private List<ReportTableRow> report = new ArrayList<>();
 
-    /*filter of file types*/
+    /**
+     * File type filter.
+     */
     private FileFilter filter;
 
-    /*indicate that compares files in single directory*/
+    /**
+     * Whether this is a single directory comparison.
+     */
     private boolean singleDirCompare;
 
-    /*show middle similarity if true*/
+    /**
+     * Whether to show middle-level similarity matches.
+     */
     private boolean showSimilarityMiddle;
 
-    /*show low similarity if true*/
+    /**
+     * Whether to show low-level similarity matches.
+     */
     private boolean showSimilarityLow;
 
     public boolean isExactWordMatch() {
@@ -182,7 +220,9 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
         return this.getReport();
     }
 
-    /*getters and setters*/
+    /**
+     * Configuration and state accessors.
+     */
 
     /**
      * Returns the starting directory path.
@@ -447,7 +487,6 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     }
 
 
-    /*this method contains main logic of comparing*/
     /**
      * Runs the full directory search and prepares the report.
      */
@@ -484,9 +523,10 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     }
 
 
-    /*comparing files in directories
-    * comparing for full equality is mandatory
-    * in other case rest comparings will not works properly*/
+    /**
+     * Compares files in directories for matching patterns.
+     * Full equality comparison is mandatory, as other comparisons depend on it.
+     */
     private void compareDirectories(){
 
         for (FileInfo startFileInfo : startDirectory) {
@@ -515,14 +555,15 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
         }
     }
 
-    /*find quantity of similar words in two List<String>, return 100 means equality */
-
-    /*
-     * find quantity of similar words in two phrases,
-     * return 100 NOT means phrases equality (phrases contains equal words,
-     * however the order of words may be different)
-     * return 0 means that phrases are definitely indifferent
-     * return value in range from 1 nj 99 means that phrases are similar in that degree */
+    /**
+     * Compares two lists of words and returns a similarity percentage.
+     * Returns 100 for identical lists.
+     *
+     * @param phrase1 the first word list
+     * @param phrase2 the second word list
+     * @return similarity score (0-100), where 0 means completely different,
+     *         1-99 means similar in that degree, and 100 means identical
+     */
     private int comparePhrases(List<WordInfo> phrase1, List<WordInfo> phrase2){
         Difference difference = new Difference(phrase1, phrase2);
         return difference.getСoincidence(this.exactWordMatch);
@@ -544,7 +585,12 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
     }
 
 
-    /*fill map with filenames and their split names by the words */
+    /**
+     * Populates the dictionary with filenames split by words.
+     *
+     * @param directoryPath the directory to read files from
+     * @return a list of FileInfo objects from the directory
+     */
     private List<FileInfo> fillDirectory(String directoryPath){
         String message = String.format("%s: %s",this.resourceBundle.getString("ReadDir"), directoryPath );
         updateMessage(message);
@@ -582,11 +628,9 @@ public class FileSearcher extends Task<List<ReportTableRow>> {
         return result;
     }
 
-    /* clear fields and collections
-    * no need in multi-thread version
-    * */
     /**
      * Clears the current search state and collected data.
+     * (Not needed in multi-threaded versions)
      */
     public void clean() {
         this.startDirectoryName = null;

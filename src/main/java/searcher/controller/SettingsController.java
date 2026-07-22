@@ -20,52 +20,71 @@ import java.util.ResourceBundle;
  */
 public class SettingsController {
 
-    private Settings settings;
-
-    /*window stage*/
+    /**
+     * The dialog stage.
+     */
     private Stage dialogStage;
 
-    /*language pocket*/
+    /**
+     * The resource bundle for localization.
+     */
     private ResourceBundle resourceBundle;
+
+    private Settings settings;
 
     private Skin skin;
 
-
-    /*field for filter text*/
+    /**
+     * Text field for configurable filter.
+     */
     @FXML
     private TextField filterTextField;
 
-    /*button for save settings and exit*/
+    /**
+     * Button to save settings and close.
+     */
     @FXML
     private Button saveBtn;
 
-    /*button for cancel changes and exit*/
+    /**
+     * Button to cancel changes and close.
+     */
     @FXML
     private Button cancelBtn;
 
-    /*button for info for filter field*/
+    /**
+     * Button to show help for the filter field.
+     */
     @FXML
     private Button questionFilter;
 
-    /*button for info for radiobuttons absolutePathRadBtn and relativePathRadBtn*/
+    /**
+     * Button to show help for word matching options.
+     */
     @FXML
     private Button exactWordMatchBtn;
 
     @FXML
     private Button saveHtmlBtn;
 
-    /*label for for filter field*/
+    /**
+     * Label for the filter field.
+     */
     @FXML
     private Label filterLbl;
 
-    /*label for for radiobuttons absolutePathRadBtn and relativePathRadBtn*/
+    /**
+     * Label for the first option group.
+     */
     @FXML
     private Label option1Lbl;
 
     @FXML
     private Label option2Lbl;
 
-    /*checkbox for show analyze by letters*/
+    /**
+     * Checkbox for enabling exact word matching.
+     */
     @FXML
     private CheckBox exactWordMatchLbl;
 
@@ -79,7 +98,6 @@ public class SettingsController {
     private ComboBox<String> skinChoiceBox;
 
 
-    /*set language pocket*/
     /**
      * Assigns the localized resources used by the dialog.
      *
@@ -180,13 +198,17 @@ public class SettingsController {
         }
     }
 
-    /*show info about filter*/
+    /**
+     * Shows the help dialog for the filter field.
+     */
     @FXML
     private void showFilterInfo(){
         Message.info(this.resourceBundle,"FilterInfo");
     }
 
-    /*show info about absolute and relative path*/
+    /**
+     * Shows the help dialog for word matching options.
+     */
     @FXML
     private void showWordMatchInfo(){
         Message.info(this.resourceBundle,"WordMatchInfo");
@@ -198,7 +220,11 @@ public class SettingsController {
     }
 
 
-    /*check that user input correct data*/
+    /**
+     * Validates user input for the filter field.
+     *
+     * @return {@code true} if the input is valid
+     */
     private boolean isInputValid() {
         String filterExtensions = this.filterTextField.getText();
         if ((!filterExtensions.matches("[a-zA-Z0-9\\s]+"))&&(!filterExtensions.isEmpty())){
@@ -208,7 +234,9 @@ public class SettingsController {
         return true;
     }
 
-    /*listener for observe change height of settings window */
+    /**
+     * Listener that adjusts font sizes when the window is resized.
+     */
     public ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
     {
         double newHeight = this.dialogStage.getHeight() * 3.5;
